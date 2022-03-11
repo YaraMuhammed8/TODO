@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo/components/build_button.dart';
 import 'package:todo/components/build_loginwith_button.dart';
 import 'package:todo/components/build_textformfield.dart';
 import 'package:todo/components/gender_field.dart';
+import 'package:todo/components/or_line.dart';
 import 'package:todo/views/home_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -31,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -79,44 +81,17 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            Color(0xffFFD4B8),
-                            Color(0xffFFA090),
-                          ],
-                        )),
-                    child: MaterialButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
-                            ModalRoute.withName('/'),
-                          );
-                        }
-                      },
-                      minWidth: double.infinity,
-                      height: 55,
-                      textColor: Colors.white,
-                      child: const Text("Register", style: TextStyle(fontSize: 20, fontFamily: "Cairo"),
-                      ),
-                    ),
-                  ),
+                  BuildButton(text: "Register", onPressed: (){
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushAndRemoveUntil(context,
+                        MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
+                        ModalRoute.withName('/'),
+                      );
+                    }
+                  }),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                        children: const [
-                          Expanded(child: Divider()),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text("or", style: TextStyle(color: Color(0xff7F7F7F))),
-                          ),
-                          Expanded(child: Divider()),
-                    ]),
+                    child: OrLine(),
                   ),
                   Row(
                     children: [

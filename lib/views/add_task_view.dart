@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/Models/task_model.dart';
+import 'package:todo/components/build_button.dart';
 import 'package:todo/components/build_textformfield.dart';
 import 'package:intl/intl.dart';
 
@@ -77,31 +78,11 @@ class AddTaskView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            Color(0xffFFD4B8),
-                            Color(0xffFFA090),
-                          ],
-                        )),
-                    child: MaterialButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          tasks.add(Task(name: name.text,date: date.text,time: time.text));
-                        }
-                      },
-                      height: 55,minWidth: double.infinity,
-                      textColor: Colors.white,
-                      child: const Text(
-                        "Add task",
-                        style: TextStyle(fontSize: 20, fontFamily: "Cairo"),
-                      ),
-                    ),
-                  ),
+                  BuildButton(text: "Add task", onPressed: (){
+                    if (_formKey.currentState!.validate()) {
+                      tasks.add(Task(name: name.text,date: date.text,time: time.text));
+                    }
+                  })
                 ],
               ),
             ),
