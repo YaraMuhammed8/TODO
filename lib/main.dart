@@ -1,6 +1,13 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/src/root_app.dart';
+import 'package:todo/src/app_root.dart';
 
-void main() {
-  runApp(RootApp());
+import 'bloc/bloc_observer.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  BlocOverrides.runZoned(
+        () => runApp(const AppRoot()),
+    blocObserver: MyBlocObserver(),
+  );
 }

@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Models/task_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/bloc/database_cubit/database_cubit.dart';
 import 'package:todo/components/build_button.dart';
 import 'package:todo/components/build_textformfield.dart';
 import 'package:intl/intl.dart';
 
+import '../Models/task.dart';
+
 class AddTaskView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController name = TextEditingController();
-  TextEditingController date = TextEditingController();
-  TextEditingController time = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<DataBaseCubit, DataBaseState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit = DataBaseCubit.get(context);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -31,7 +40,7 @@ class AddTaskView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BuildTextFormField(
-                    controller: name,
+                    controller: nameController,
                     labelText: "Name",
                     hintText: "Enter name of the task",
                     keyboardType: TextInputType.name,
@@ -42,7 +51,7 @@ class AddTaskView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: BuildTextFormField(
-                          controller: date,
+                          controller: dateController,
                           labelText: "Date",
                           hintText: "Enter date of the task",
                           keyboardType: TextInputType.datetime,
@@ -54,15 +63,15 @@ class AddTaskView extends StatelessWidget {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 30)
                             ).then((value) {
-                              date.text = DateFormat.MMMMd().format(value!);
-                              print(date.text);
+                              dateController.text = DateFormat.MMMMd().format(value!);
+                              print(dateController.text);
                             });
                           },
                         ),),
                       const SizedBox(width: 10),
                       Expanded(
                         child: BuildTextFormField(
-                          controller: time,
+                          controller: timeController,
                           labelText: "Time",
                           hintText: "Enter time of the task",
                           keyboardType: TextInputType.datetime,
@@ -70,8 +79,8 @@ class AddTaskView extends StatelessWidget {
                           onTap: () {
                             showTimePicker(context: context, initialTime: TimeOfDay.now())
                                 .then((value) {
-                              time.text = value!.format(context);
-                              print(time.text);
+                              timeController.text = value!.format(context);
+                              print(timeController.text);
                             });
                           },
                         ),),
@@ -80,7 +89,8 @@ class AddTaskView extends StatelessWidget {
                   const SizedBox(height: 20),
                   BuildButton(text: "Add task", onPressed: (){
                     if (_formKey.currentState!.validate()) {
-                      tasks.add(Task(name: name.text,date: date.text,time: time.text));
+                      Task task = Task(name:nameController.text,time: timeController.text,date: dateController.text);
+                      cubit.addTaskToDB(task);
                     }
                   })
                 ],
@@ -90,5 +100,7 @@ class AddTaskView extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

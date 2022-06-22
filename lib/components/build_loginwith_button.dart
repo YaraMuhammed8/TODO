@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
 class LoginWithButton extends StatelessWidget {
   Color backgroundColor;
   Color textColor;
   String platformName;
 
-  LoginWithButton({required this.textColor,required this.backgroundColor,required this.platformName});
+  LoginWithButton(
+      {Key? key,
+      required this.textColor,
+      required this.backgroundColor,
+      required this.platformName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +19,7 @@ class LoginWithButton extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: MaterialButton(
         color: backgroundColor,
-        textColor:textColor,
+        textColor: textColor,
         height: 50,
         elevation: 2,
         onPressed: () {},
@@ -20,10 +27,19 @@ class LoginWithButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("$platformName ",style: const TextStyle(fontSize: 14),),
-            Image.asset("assets/images/$platformName.png",height: 15,width: 15,fit: BoxFit.cover,),
-          ],),
+            Text(
+              "$platformName ",
+              style: const TextStyle(fontSize: 14),
+            ),
+            Image.asset(
+              "assets/images/$platformName.png",
+              height: 15,
+              width: 15,
+              fit: BoxFit.cover,
+            ),
+          ],
+        ),
       ),
-    );;
+    );
   }
 }

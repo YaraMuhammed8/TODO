@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BuildTextFormField extends StatefulWidget {
   TextEditingController controller;
   TextInputType keyboardType;
@@ -10,6 +11,7 @@ class BuildTextFormField extends StatefulWidget {
   Function? onTap;
 
   BuildTextFormField({
+    Key? key,
     required this.controller,
     this.prefixIcon,
     required this.hintText,
@@ -17,7 +19,7 @@ class BuildTextFormField extends StatefulWidget {
     required this.labelText,
     this.isPassword = false,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   State<BuildTextFormField> createState() => _BuildTextFormFieldState();
@@ -56,18 +58,19 @@ class _BuildTextFormFieldState extends State<BuildTextFormField> {
               prefixIcon: Icon(widget.prefixIcon),
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10)
-              ),
+                  borderRadius: BorderRadius.circular(10)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300)),
-              suffixIcon: widget.isPassword ?
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                    },
-                  icon: Icon(hidePassword ? Icons.visibility : Icons.visibility_off))
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      icon: Icon(hidePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off))
                   : null),
         ),
       ),

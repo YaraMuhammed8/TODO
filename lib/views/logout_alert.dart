@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:todo/views/home_screen.dart';
 import 'package:todo/views/register_screen.dart';
 
+import '../components/navigation.dart';
+
 class LogoutAlert extends StatelessWidget {
+  const LogoutAlert({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +15,15 @@ class LogoutAlert extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () {
-              Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
-                ModalRoute.withName('/'),
-              );
+              navigateAndFinish(context, const HomeScreen());
             },
             child: const Text("Cancel")),
         TextButton(
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (BuildContext context) => RegisterScreen()),
+                MaterialPageRoute(
+                    builder: (BuildContext context) => RegisterScreen()),
                 ModalRoute.withName('/'),
               );
             },

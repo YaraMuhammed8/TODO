@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 class OrLine extends StatelessWidget {
+  const OrLine({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(

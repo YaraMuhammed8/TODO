@@ -6,11 +6,14 @@ import 'package:todo/components/gender_field.dart';
 import 'package:todo/components/or_line.dart';
 import 'package:todo/views/home_screen.dart';
 
+// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,7 @@ class RegisterScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
+            physics:const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 20),
               child: Column(
